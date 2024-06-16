@@ -3,6 +3,7 @@ package two_dimenstion_array.array_addition;
 import java.io.*;
 import java.util.StringTokenizer;
 
+// 2738 행렬 덧셈
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
