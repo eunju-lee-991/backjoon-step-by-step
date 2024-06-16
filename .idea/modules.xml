@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/backjoon-step-by-step.iml" filepath="$PROJECT_DIR$/backjoon-step-by-step.iml" />
+      <module fileurl="file://$PROJECT_DIR$/step-by-step/step-by-step.iml" filepath="$PROJECT_DIR$/step-by-step/step-by-step.iml" />
     </modules>
   </component>
 </project>
