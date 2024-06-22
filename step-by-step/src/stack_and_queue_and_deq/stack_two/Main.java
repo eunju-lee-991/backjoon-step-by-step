@@ -1,8 +1,6 @@
-package stack_and_queue_and_deck.stack_two;
+package stack_and_queue_and_deq.stack_two;
 
 import java.io.*;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Stack;
 import java.util.StringTokenizer;
 

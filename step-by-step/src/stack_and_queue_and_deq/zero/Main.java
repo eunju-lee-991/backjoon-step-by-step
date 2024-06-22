@@ -1,4 +1,4 @@
-package stack_and_queue_and_deck.zero;
+package stack_and_queue_and_deq.zero;
 
 import java.io.*;
 import java.util.Stack;

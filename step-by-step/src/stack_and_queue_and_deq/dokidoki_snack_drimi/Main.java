@@ -1,9 +1,8 @@
-package stack_and_queue_and_deck.dokidoki_snack_drimi;
+package stack_and_queue_and_deq.dokidoki_snack_drimi;
 
 import java.io.*;
 import java.util.Arrays;
 import java.util.Stack;
-import java.util.StringTokenizer;
 
 // 12789 도키도키 간식드리미
 public class Main {

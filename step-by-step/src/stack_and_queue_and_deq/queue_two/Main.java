@@ -1,9 +1,8 @@
-package stack_and_queue_and_deck.queue_two;
+package stack_and_queue_and_deq.queue_two;
 
 import java.io.*;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.Stack;
 
 // 10773 zero
 public class Main {

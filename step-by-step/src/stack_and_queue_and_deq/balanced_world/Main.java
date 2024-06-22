@@ -1,4 +1,4 @@
-package stack_and_queue_and_deck.balanced_world;
+package stack_and_queue_and_deq.balanced_world;
 
 import java.io.*;
 import java.util.Stack;
