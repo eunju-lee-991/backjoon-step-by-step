@@ -1,12 +1,7 @@
 package stack_and_queue_and_deq.pop_balloon;
 
 import java.io.*;
-import java.util.Deque;
-import java.util.LinkedList;
-import java.util.Stack;
 import java.util.StringTokenizer;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 // 2346 풍선 터뜨리기
 public class Main {
@@ -14,31 +9,43 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         int n = Integer.parseInt(br.readLine());
-        int[] arr = new int[n+1];
-        Deque<Integer> deque = IntStream.rangeClosed(1, n).boxed().collect(Collectors.toCollection(LinkedList::new));
+        int[] arr = new int[n];
         StringTokenizer tokenizer = new StringTokenizer(br.readLine());
         for (int i = 0; i < n; i++) {
-            arr[i+1] = Integer.parseInt(tokenizer.nextToken());
+            arr[i] = Integer.parseInt(tokenizer.nextToken());
         }
+        int popNext = 0;
+        int popCount = 1;
+        bw.write((popNext + 1) + " ");
 
-        int nextPop = 1;
-        while (!deque.isEmpty()) {
-            if (nextPop > 0) {
-                for (int i = 0; i < nextPop - 1; i++) {
-                    deque.offerLast(deque.pollFirst());
+        while (popCount < arr.length) {
+            int popOrder = arr[popNext];
+            arr[popNext] = 0;
+
+            if (popOrder > 0) {
+                for (int i = 0; i < popOrder; i++) {
+                    int index = (i + 1 + popNext) % arr.length;
+
+                    if (arr[index] == 0) {
+                        popOrder++;
+                    } else if (i == popOrder - 1) {
+                        popNext = index;
+                        popCount++;
+                        bw.write((popNext + 1) + " ");
+                    }
                 }
-                Integer poll = deque.pollFirst();
-                nextPop = arr[poll];
-                bw.write(poll+" ");
-            }else {
-                for (int i = 0; i > nextPop + 1; i--) { // 음수인 경우 고려
-                    deque.offerFirst(deque.pollLast());
+            } else { // If the popOrder is negative
+                for (int i = 0; i > popOrder; i--) {
+                    int index = popNext + (i - 1) % arr.length < 0 ? arr.length + popNext + (i - 1) % arr.length : popNext + (i - 1) % arr.length;
+                    if (arr[index] == 0) {
+                        popOrder--;
+                    } else if (i == popOrder + 1) {
+                        popNext = index;
+                        popCount++;
+                        bw.write((popNext + 1) + " ");
+                    }
                 }
-                Integer poll = deque.pollLast();
-                nextPop = arr[poll];
-                bw.write(poll+" ");
             }
-
         }
 
         br.close();
