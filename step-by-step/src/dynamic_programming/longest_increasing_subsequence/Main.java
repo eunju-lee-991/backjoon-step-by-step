@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
-// 11053 - 가장 긴 증가하는 부분 수열
+// 9251 - LCS
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
