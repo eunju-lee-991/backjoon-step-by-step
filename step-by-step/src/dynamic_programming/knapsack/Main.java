@@ -23,11 +23,11 @@ public class Main {
 
         for (int i = 1; i < maxWeight+1; i++) {
             for (int j = 1; j <n+1; j++) {
-                dp[i][j] = dp[i-1][j];
+                dp[i][j] = dp[i][j-1];
                 int w = vw[j][0];
                 int v = vw[j][1];
-                if (w <= vw[i][0]) {
-                    dp[i][j] = Math.max(dp[i][j-1], dp[i-w][j-1] + v);
+                if (w <= i) {
+                    dp[i][j] = Math.max(dp[i][j], dp[i-w][j-1] + v);
                 }
             }
         }
