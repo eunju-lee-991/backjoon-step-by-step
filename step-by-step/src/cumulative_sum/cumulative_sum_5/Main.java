@@ -13,17 +13,17 @@ public class Main {
         int M = Integer.parseInt(tokenizer.nextToken()); // 합을 구해야하는 횟수
         int[][] chart = new int[N+1][N+1];
 
-        for (int i = 0; i < N; i++) {
+        for (int i = 1; i < N + 1; i++) {
             tokenizer = new StringTokenizer(br.readLine());
             int j = 0;
             while (tokenizer.hasMoreElements()) {
-                chart[i+1][++j] = Integer.parseInt(tokenizer.nextToken());
-                chart[i+1][j] = chart[i+1][j] + chart[i+1][j-1];
+                j++;
+                int n = Integer.parseInt(tokenizer.nextToken());
+                chart[i][j] = n + chart[i-1][j] + chart[i][j-1] - chart[i-1][j-1];
             }
         }
 
         for (int i = 0; i < M; i++) {
-            int sum = 0;
             tokenizer = new StringTokenizer(br.readLine());
 
             int x1 = Integer.parseInt(tokenizer.nextToken());
@@ -31,9 +31,7 @@ public class Main {
             int x2 = Integer.parseInt(tokenizer.nextToken());
             int y2 = Integer.parseInt(tokenizer.nextToken());
 
-            for (int j = x1; j <= x2; j++) {
-                sum += chart[j][y2] - chart[j][y1-1];
-            }
+            int sum = chart[x2][y2] - chart[x2][y1-1] - chart[x1-1][y2] + chart[x1-1][y1-1];
             bw.write(sum + "\n");
         }
 
