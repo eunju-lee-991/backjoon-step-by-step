@@ -3,7 +3,7 @@ package cumulative_sum.cumulative_sum_5;
 import java.io.*;
 import java.util.StringTokenizer;
 
-// 11659 - 구간 합 구하기 5
+// 11660 - 구간 합 구하기 5
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
