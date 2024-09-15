@@ -1,46 +1,40 @@
-package binary_search.find_number;
+package binary_search.number_card_2;
 
 import java.io.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
-// 1920 - 수 찾기
+// 10816 - 숫자 카드 2
 public class Main {
-    static int[] arr;
+    static Map<Integer, Integer> map = new HashMap<>();
+    static List<Map.Entry<Integer, Integer>> list;
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringBuilder sb = new StringBuilder();
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         int N = Integer.parseInt(br.readLine());
-        arr = new int[N];
         StringTokenizer tokenizer = new StringTokenizer(br.readLine());
         for (int i = 0; i < N; i++) {
-            arr[i] = Integer.parseInt(tokenizer.nextToken());
+            int n = Integer.parseInt(tokenizer.nextToken());
+            if(map.containsKey(n)) {
+                map.put(n, map.get(n) + 1);
+            } else {
+                map.put(n, 1);
+            }
         }
-        Arrays.sort(arr);
         int M = Integer.parseInt(br.readLine());
         tokenizer = new StringTokenizer(br.readLine());
         br.close();
         for (int i = 0; i < M; i++) {
             int m = Integer.parseInt(tokenizer.nextToken());
-            if(binarySearch(0, arr.length - 1, m)){
-                sb.append(1).append('\n');
-            }else {
-                sb.append(0).append('\n');
-            }
-        }
-        System.out.print(sb.toString());
-    }
-
-    static boolean binarySearch(int start, int end, int m) {
-        while (start <= end) {
-            int mid = (end + start) / 2;
-            if (arr[mid] == m) {
-                return true;
-            } else if (m < arr[mid]) {
-                end = mid - 1;
+            if(map.containsKey(m)){
+                bw.write(String.valueOf(map.get(m)));
             } else {
-                start = mid + 1;
+                bw.write(String.valueOf(0));
             }
+            bw.write(" ");
         }
-        return false;
+        bw.flush();
+        bw.close();
     }
 }
