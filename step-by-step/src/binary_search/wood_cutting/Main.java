@@ -12,7 +12,7 @@ public class Main {
         StringTokenizer tokenizer = new StringTokenizer(br.readLine());
         int K = Integer.parseInt(tokenizer.nextToken());
         int N = Integer.parseInt(tokenizer.nextToken());
-        long[] arr = new long[K]; // int로는 에러 남
+        long[] arr = new long[K];
         long end = 0;
         for (int i = 0; i < K; i++) {
             arr[i] = Long.parseLong(br.readLine());
