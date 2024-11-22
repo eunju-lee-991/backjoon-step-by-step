@@ -1,4 +1,4 @@
-package graph_and_traverse.dfs_2;
+package graph_and_traverse.bfs_1;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -6,12 +6,10 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.*;
 
-// 24480 - 깊이 우선 탐색 2
+// 24444 - 너비 우선 탐색 1
 public class Main {
-    static int depth;
-    static int[] visited;
-    static List<SortedSet<Integer>> nodes;
     static BufferedWriter bw ;
+    static int depth = 1;
 
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -20,35 +18,44 @@ public class Main {
         int N = Integer.parseInt(st.nextToken());
         int M = Integer.parseInt(st.nextToken());
         int R = Integer.parseInt(st.nextToken());
-        nodes = new ArrayList<>();
-        for(int i=0; i<N+1; i++){
+        int[] visited = new int[N + 1];
+
+        List<TreeSet<Integer>> nodes = new ArrayList<>();
+        nodes.add(new TreeSet<>());
+        for (int i = 0; i < N; i++) {
             nodes.add(new TreeSet<>());
         }
 
-        for(int i=0; i<M; i++){
+        for (int i = 0; i < M; i++) {
             st = new StringTokenizer(br.readLine());
             int a = Integer.parseInt(st.nextToken());
             int b = Integer.parseInt(st.nextToken());
+
             nodes.get(a).add(b);
             nodes.get(b).add(a);
         }
-        visited = new int[nodes.size()];
-        depth = 1;
-        dfs(R);
-        for (int i=1; i<visited.length; i++) {
-            bw.write(visited[i]+"\n");
-        }
-        bw.flush();
-        bw.close();
-    }
 
-    static void dfs(int i) {
-        visited[i] = depth;
-        for (int node : nodes.get(i)) {
-            if(visited[node]==0){
-                depth++;
-                dfs(node);
+        Queue<Integer> queue = new LinkedList<>();
+        visited[R] = depth++;
+        for (int node : nodes.get(R)) {
+            queue.add(node);
+        }
+
+        while (!queue.isEmpty()) {
+            Integer poll = queue.poll();
+            if(visited[poll] == 0) {
+                visited[poll] = depth++;
+                for (int node : nodes.get(poll)) {
+                    queue.add(node);
+                }
             }
         }
+
+        for (int i = 1; i < visited.length; i++) {
+            bw.write( visited[i]+"\n");
+        }
+
+        bw.flush();
+        bw.close();
     }
 }
