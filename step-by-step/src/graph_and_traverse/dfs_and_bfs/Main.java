@@ -1,58 +1,71 @@
-package graph_and_traverse.virus;
+package graph_and_traverse.dfs_and_bfs;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
+import java.io.*;
 import java.util.*;
 
-// 2606 - 바이러스
+// 1260 - DFS와 BFS
 public class Main {
     static BufferedWriter bw ;
     static boolean[] visited;
-    static List<Set<Integer>> nodes;
-
+    static List<TreeSet<Integer>> nodes;
 
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        int N = Integer.parseInt(br.readLine());
-        int M = Integer.parseInt(br.readLine());
-
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int N = Integer.parseInt(st.nextToken());
+        int M = Integer.parseInt(st.nextToken());
+        int V = Integer.parseInt(st.nextToken());
         visited = new boolean[N + 1];
 
         nodes = new ArrayList<>();
-        nodes.add(new HashSet<>());
+        nodes.add(new TreeSet<>());
         for (int i = 0; i < N; i++) {
-            nodes.add(new HashSet<>());
+            nodes.add(new TreeSet<>());
         }
-        StringTokenizer st;
+
         for (int i = 0; i < M; i++) {
             st = new StringTokenizer(br.readLine());
-            int a = Integer.parseInt(st.nextToken());
-            int b = Integer.parseInt(st.nextToken());
+            int n = Integer.parseInt(st.nextToken());
+            int m = Integer.parseInt(st.nextToken());
 
-            nodes.get(a).add(b);
-            nodes.get(b).add(a);
+            nodes.get(n).add(m);
+            nodes.get(m).add(n);
         }
 
-        dfs(1);
-        int result = 0;
-        for (int i = 2; i < visited.length; i++) {
-            if(visited[i]) result++;
-        }
+        dfs(V);
+        visited = new boolean[N + 1];
+        bw.write("\n");
+        bfs(V);
 
-        bw.write(result+"");
         bw.flush();
         bw.close();
     }
 
-    private static void dfs(int i) {
-        visited[i] = true;
+    static void dfs(int v) throws IOException {
+        visited[v] = true;
+        bw.write(v + " ");
+        for (int i : nodes.get(v)){
+            if (!visited[i]) {
+                dfs(i);
+            }
+        }
+    }
 
-        for (int node : nodes.get(i)) {
-            if (!visited[node]) {
-                dfs(node);
+    static void bfs(int v) throws IOException {
+        Queue<Integer> queue = new LinkedList<>();
+        queue.offer(v);
+        visited[v] = true;
+
+        while (!queue.isEmpty()) {
+            Integer poll = queue.poll();
+
+            bw.write(poll + " ");
+            for (int i : nodes.get(poll)) {
+                if (!visited[i]) {
+                    queue.offer(i);
+                    visited[i] = true;
+                }
             }
         }
     }
