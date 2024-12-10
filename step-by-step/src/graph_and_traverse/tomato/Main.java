@@ -1,4 +1,4 @@
-package graph_and_traverse.movement_of_knight;
+package graph_and_traverse.tomato;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -8,61 +8,59 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.StringTokenizer;
 
-// 7562 - 나이트의 이동
+// 7576 - 토마토
 public class Main {
     static BufferedWriter bw;
-
+    static int[] dx = {1, -1, 0, 0};
+    static int[] dy = {0, 0, 1, -1};
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        StringTokenizer st;
-        int[] dx = {-1, -2, -2, -1, 1, 2, 2, 1};
-        int[] dy = {-2, -1, 1, 2};
-        int N = Integer.parseInt(br.readLine());
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int M = Integer.parseInt(st.nextToken());
+        int N = Integer.parseInt(st.nextToken());
+        int[][] box = new int[N][M];
+        int days = 0;
+        Queue<int[]> queue = new LinkedList<>();
         for (int i = 0; i < N; i++) {
-            int l = Integer.parseInt(br.readLine());
-            int[][] arr = new int[l][l];
-            boolean[][] visited = new boolean[l][l];
             st = new StringTokenizer(br.readLine());
-            int cx = Integer.parseInt(st.nextToken());
-            int cy = Integer.parseInt(st.nextToken());
-
-            st = new StringTokenizer(br.readLine());
-            int tx = Integer.parseInt(st.nextToken());
-            int ty = Integer.parseInt(st.nextToken());
-
-            Queue<int[]> queue = new LinkedList<>();
-            queue.offer(new int[]{cx, cy});
-            visited[cx][cy] = true;
-            int depth = 0;
-            while (!queue.isEmpty()) {
-                int size = queue.size();
-                for (int j = 0; j <size; j++) {
-
-                    int[] poll = queue.poll();
-                    int x = poll[0];
-                    int y = poll[1];
-                    if (x == tx && y == ty) {
-                        bw.write(depth+"\n");
-                        break;
-                    }
-                    for (int k = 0; k < dx.length; k++) {
-                        int nx = x + dx[k];
-                        int ny = y + dy[k % 4];
-                        if (nx >= 0 && ny >= 00 && nx < l && ny < l && !visited[nx][ny]) {
-                            queue.offer(new int[]{nx, ny});
-                            visited[nx][ny] = true;
-                        }
-                    }
+            for (int j = 0; j < M; j++) {
+                box[i][j] = Integer.parseInt(st.nextToken());
+                if (box[i][j] == 1) {
+                    queue.offer(new int[] {i, j});
                 }
-                depth++;
             }
-
         }
-
-
         br.close();
 
+        while (!queue.isEmpty()) {
+            int[] poll = queue.poll();
+            int cx = poll[0];
+            int cy = poll[1];
+
+            for (int i = 0; i < 4; i++) {
+                int nx = cx + dx[i];
+                int ny = cy + dy[i];
+                if (nx >= 0 && ny >= 0 && nx < N && ny < M && box[nx][ny] == 0) {
+                    queue.offer(new int[]{nx, ny});
+                    box[nx][ny] = box[cx][cy] + 1;
+                }
+            }
+        }
+
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < M; j++) {
+                if(box[i][j] == 0) {
+                    bw.write("-1");
+                    bw.flush();
+                    bw.close();
+                    return;
+                } else {
+                    days = Math.max(days, box[i][j]);
+                }
+            }
+        }
+        bw.write(days-1 + "");
         bw.flush();
         bw.close();
     }
