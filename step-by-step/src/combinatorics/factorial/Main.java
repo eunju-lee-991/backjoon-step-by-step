@@ -1,7 +1,8 @@
-package combinatorics.green_tower;
+package combinatorics.factorial;
 
 import java.io.*;
 
+// 10872 - 팩토리얼
 public class Main {
     static int N;
 
@@ -11,10 +12,14 @@ public class Main {
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
         N = Integer.parseInt(br.readLine());
+        int answer = 1;
+        if (N > 1) {
+            for (int i = 2; i <= N; i++) {
+                answer *= i;
+            }
+        }
 
-        double pow = Math.pow(2, N);
-
-        bw.write((int) pow + "");
+        bw.write(answer+"");
         bw.flush();
         bw.close();
     }
