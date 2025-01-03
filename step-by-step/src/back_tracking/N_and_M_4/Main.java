@@ -1,10 +1,10 @@
-package back_tracking.N_and_M_3;
+package back_tracking.N_and_M_4;
 
 import java.io.*;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
-// 15651 - N과 M (3)
+// 15652 - N과 M (4)
 public class Main {
     static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
     static int N;
