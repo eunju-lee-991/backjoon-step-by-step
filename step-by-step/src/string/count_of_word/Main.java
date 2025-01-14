@@ -1,27 +1,18 @@
-package string.make_anagram;
+package string.count_of_word;
 
 import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
 
-// 1919 - 애너그램 만들기
+// 1152 - 단어의 개수
 public class Main {
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-
-        int[][] alphabet = new int[2][26];
-        for (int i = 0; i < 2; i++) {
-            String input = br.readLine();
-            for (int j = 0; j < input.length(); j++) {
-                alphabet[i][input.charAt(j) - 'a']++;
-            }
-        }
-        int delete = 0;
-        for (int j = 0; j < alphabet[0].length; j++) {
-            delete += Math.abs(alphabet[0][j] - alphabet[1][j]);
-        }
-
-        bw.write(delete+"");
+        String input = br.readLine().strip();
+        br.close();
+        bw.write( input.equals("") ? "0" : input.split(" ").length + "");
         bw.close();
     }
 }
